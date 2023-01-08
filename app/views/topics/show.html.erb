@@ -1,0 +1,11 @@
+<!--<p style="color: green"><%#= notice %></p>-->
+
+<%= render @topic %>
+
+<div>
+  <%= link_to "Edit this topic", edit_topic_path(@topic) , class: 'btn btn-outline-info'%> |
+  <%= link_to "Back to topics", topics_path , class:'btn btn-outline-secondary'%>
+
+  <%#= button_to "Destroy this topic", @topic, method: :delete %>
+  <%= link_to "Delete",@topic,data:{"turbo_method": :delete,"turbo_confirm": "Are you sure ?"},class:'btn btn-outline-danger' %>
+</div>

@@ -1,0 +1,23 @@
+<!--<p style="color: green"><%#= notice %></p>-->
+
+<h1>Topics</h1>
+
+<div id="topics">
+  <% @topics.each do |topic| %>
+    <%= render topic %>
+<!--    <p>-->
+      <%#= link_to "Show this topic", topic_posts_path(topic) %>
+      <%# count =  Post.group(:topic_id).count%>
+      <%# count.each do |key,value| %>
+      <%#= value if key == topic.id  %>
+      <%# end %>
+<!--      Collection.distinct.count(:user_id)-->
+<!--    </p>-->
+  <% end %>
+</div>
+<%= link_to "New topic", new_topic_path, class: 'btn btn-outline-success' %>
+<%#= link_to "New post", new_topic_post_path(@topics) , class: 'btn btn-outline-success' %>
+
+
+
+

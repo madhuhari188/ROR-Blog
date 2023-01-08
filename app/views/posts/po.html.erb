@@ -1,0 +1,21 @@
+<%# @posts.each do |post| %>
+<!--  <div class="card">-->
+<!--    <div class="card-body">-->
+<!--      <h5 class="card-title"><%#= post.title %></h5>-->
+<!--      <h6 class="card-subtitle mb-2 text-muted"><%#= Topic.find(post.topic_id).topic_name %></h6>-->
+<!--      <p class="card-text"><%#= post.body %></p>-->
+<!--            <a href="#" class="card-link">Card link</a>-->
+<!--          <a href="#" class="card-link">Another link</a>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <br>-->
+<%# end %>
+<% @posts.group_by(&:topic_id).each do |key,values| %>
+  <br>
+  <h2><%= Topic.find(key).topic_name %></h2>
+  <br>
+  <% values.each do |post| %><br>
+        <h5><%= post.title %></h5>
+        <p><%= post.body %></p>
+  <% end %>
+<% end %>

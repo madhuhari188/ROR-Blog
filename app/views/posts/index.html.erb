@@ -1,0 +1,120 @@
+<!--<p style="color: green"><%#= notice %></p>-->
+
+<h1>Posts</h1>
+<div class="container">
+  <div class="row">
+
+    <!--<div id="posts">-->
+    <% @posts.each do |post| %>
+      <%#= render post %>
+      <br>
+      <div class="col-6 p-3">
+        <div class="card">
+          <div class="card-body over">
+            <div class="row">
+              <div class="col">
+                <div class = "row">
+                  <div class="col">
+                    <h5 class="card-title"><%= post.title%></h5>
+                    <h6 class="card-subtitle mb-2 text-muted"><%= Topic.find(post.topic_id).topic_name %></h6>
+                  </div>
+                  <div class="col">
+                    <div class="text-muted">
+                      <% if post.user_id? %>
+                        Author: <%= User.find(post.user_id).email %>
+                      <%else %>
+                        <%= "No user" %>
+                      <%end %>
+                    </div>
+                    <% if post.users.exists? == post.id %>
+                    <span class="badge bg-success">Read</span>
+                      <%else %>
+                    <span class="badge bg-danger">Un Read</span>
+                      <% end %>
+                  </div>
+                </div>
+                <!--        <h5 class="card-title"><%#= post.title + " ("+Topic.find(post.topic_id).topic_name+")"  %></h5>-->
+                <p class="card-text"><%= post.body %></p>
+                <%= link_to topic_post_path(Topic.find(post.topic_id).id,post) , class: 'post btn btn-outline-success ', remote: true do %>
+                  <i class="bi bi-folder2-open"></i> Show
+                <% end %>
+                <!--      <a href="#" class="card-link">Card link</a>-->
+                <!--      <a href="#" class="card-link">Another link</a>-->
+                <!--        <p class="text-muted"><%#= Comment.find(post.id).body %></p>-->
+
+                <p><b>Tags:</b>
+                  <%= post.tags.map(&:tag).join(',') %>
+                </p>
+                <div class="row">
+                  <div class="col">
+                    <div class="text-muted">
+                      <%= post.created_at.strftime('Created At : %m/%d/%Y') %>
+                    </div>
+                  </div>
+
+                  <div class="col">
+                    <div class="text-muted d-flex justify-content-center">
+                      Ratings:
+                      <%= number_with_precision(Post.find(post.id).ratings.average(:post_rating),precision: 2)%>
+                    </div>
+                  </div>
+                  <div class="col ">
+                    <div class="text-muted">
+                      <span>Commments Count:</span>
+                    <%=Post.find(post.id).comments.count  %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col mt-3 text-center">
+                <% if post.post_image.attached? %>
+                  <%= image_tag url_for(post.post_image.variant(resize_to_limit: [400, 400])) %>
+                <%end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--    <p>-->
+      <%#= link_to "Show this post",[@topic, post] , class: 'btn btn-outline-success' %>
+      <%#= link_to "Show this post",[@topic, post]  %>
+      <%#= post.inspect %>
+      <!--    </p>-->
+    <% end %>
+    <!--</div> -->
+  </div>
+</div>
+<br>
+<% if params.has_key?(:topic_id) %>
+  <%= link_to new_topic_post_path , class: 'btn btn-outline-success' do %>
+    <i class="bi bi-plus"></i> New Post
+    <%= link_to "Back ", topics_path , class: 'btn btn-outline-secondary' %>
+  <% end %>
+<%end %>
+<a class="link-danger open">Open</a>
+<!--<div class=”row margin-twenty5-zero margin-b-zero pagination-row”>-->
+
+<!--  <div class=”col-lg-8 col-md-8 col-sm-7 col-xs-6 padding-zero”>-->
+
+<!--    <ul class=”pagination”>-->
+
+<!--<li class=”disabled”> <%#= will_paginate(@articles, :previous_label => “ & laquo;”, :next_label => “ & raquo;”, :class=>”small - font”,:outer_window => 1, :inner_window => 0) %></li>-->
+
+<!--    </ul>-->
+
+<!--  </div>-->
+
+<!--  <div class=”col-lg-4 col-md-4 col-sm-5 col-xs-6 pagination-info”>-->
+
+<!--    <span class=”pull-right”><%#= page_entries_info(@posts) %></span>-->
+
+<!--  </div>-->
+
+<!--</div>-->
+<div class="apple_pagination">
+  <div class="page_info">
+    <%= page_entries_info @posts %>
+  </div>
+  <%= will_paginate @posts, :container => false %>
+</div>
+<%#= will_paginate @posts %>

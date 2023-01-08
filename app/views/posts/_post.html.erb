@@ -1,0 +1,71 @@
+<div id="<%= dom_id post %>">
+  <div class="card text-center">
+    <div class="card-header h1">
+      <%= post.title %>
+      <% if post.users.exists? %>
+        <span class="badge bg-success">Read</span>
+      <%else %>
+        <span class="badge bg-danger">Un Read</span>
+      <% end %>
+    </div>
+    <div class="card-body">
+      <% if post.post_image.attached? %>
+      <%= image_tag url_for(post.post_image.variant(resize_to_limit: [500, 500])) %>
+        <%end %>
+      <h5 class="card-title">Title: <%= Topic.find(post.topic_id).topic_name %></h5>
+      <h6 class="card-subtitle mb-2 text-muted"><b>Tags:</b>
+        <%=post.tags.map(&:tag).join(",") %>
+      </h6>
+      <p class="card-text"><%= post.body %></p>
+    </div>
+    <div class="card-footer">
+      <div class="d-flex gap-3">
+        <% if can? :edit, @post %>
+        <%= link_to edit_topic_post_path(@topic,@post)  , class: 'btn btn-outline-success' do %>
+          <i class="bi bi-pencil-square"></i> edit
+        <%end %>
+          <% end %>
+
+        <%= link_to :back  , class: 'btn btn-outline-secondary' do%>
+          <i class="bi bi-reply"></i> Back
+          <%end %>
+        <%#= button_to "Delete", @posts, method: :delete , class: 'btn btn-outline-danger' %>
+        <%= link_to @posts, data: { 'turbo-method': :delete, 'turbo-confirm': 'Are you sure?' }, class: 'btn btn-outline-danger' do%>
+          <i class="bi bi-trash3"></i> Delete
+        <%end %>
+      </div>
+    </div>
+  </div>
+<!--  <div class="card">-->
+<!--    <div class="card-body">-->
+<!--      <h5 class="card-title"><%#= post.title %></h5>-->
+<!--      <h6 class="card-subtitle mb-2 text-muted"><%#= Topic.find(post.topic_id).topic_name %></h6>-->
+<!--      <h6 class="card-subtitle mb-2 text-muted"><b>Tags:</b>-->
+        <%# post.tags.each do |tag| %>
+        <%#= tag.tag %>
+        <%#end %>
+        <%#=post.tags.map(&:tag).join(",") %>
+<!--      </h6>-->
+<!--      <p class="card-text "><%#= post.body %></p>-->
+
+<!--      <br><br>-->
+<!--      <div class="d-flex gap-3">-->
+
+<!--                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">-->
+<!--                 Launch demo modal-->
+<!--               </button>-->
+
+<!--         Modal -->
+
+        <%#= link_to "Edit",edit_topic_post_path(@topic,@post)  , class: 'btn btn-outline-success' %>
+
+        <%#= link_to "Back", topic_posts_path  , class: 'btn btn-outline-secondary' %>
+        <%#= button_to "Delete", @posts, method: :delete , class: 'btn btn-outline-danger' %>
+        <%#= link_to "Delete",@posts, data: { 'turbo-method': :delete, 'turbo-confirm': 'Are you sure?' }, class: 'btn btn-outline-danger' %>
+<!--      </div>-->
+<!--            <a href="#" class="card-link">Card link</a>-->
+<!--          <a href="#" class="card-link">Another link</a>-->
+<!--    </div>-->
+<!--  </div>-->
+
+</div>

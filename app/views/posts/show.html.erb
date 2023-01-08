@@ -1,0 +1,50 @@
+
+
+<%= render @post %>
+<%#= image_tag url_for(@post.post_image.variant(resize_to_limit: [500, 500])) %>
+<div class ="row">
+  <div class="col-4">
+    <%= render 'comments/form', comment: @comment %>
+
+    <b>Comments</b>
+    <br>
+    <% @post.comments.each do |comment|%>
+      <%= comment.body%>
+      <% if comment.body %>
+        <!--          <a class="btn btn-primary" data-bs-toggle ="modal" data-bs-target="#exampleModal" >Edit</a>-->
+        <%#= render 'comments/form', comment: comment %>
+        <%#= render 'comments/form', comment: comment %>
+        <% if can? :edit , comment %>
+        <%= link_to 'Edit', edit_topic_post_comment_path(@topic,@post,comment), class: 'btn btn-outline-info' %>
+
+        <%#= button_to "Destroy this comment", [@topic,@post,comment], method: :delete %>
+        <%= link_to "Delete",[@topic,@post,comment], data: { 'turbo-method': :delete, 'turbo-confirm': 'Are you sure?' }, class: 'btn btn-outline-danger' %>
+          <% end %>
+      <%end %>
+      <br>
+
+    <% end %>
+  </div>
+
+
+<div class="col">
+  <%= render 'ratings/form', rating:@rating %>
+  <strong>Ratings</strong>
+  <br>
+  <% j = 5 %>
+  <% 5.times do %>
+    <p>
+    <% j.times do %>
+      &#9733;
+    <%end %>
+      <% if (Post.find(@post.id).ratings.group(:post_rating).count[j]) == nil %>
+        <%= 0 %>
+        <%end %>
+      <%=Post.find(@post.id).ratings.group(:post_rating).count[j]  %>
+
+      <% j = j - 1 %>
+    </p>
+  <% end %>
+  <%=@post.ratings.group(:post_rating).count  %>
+</div>
+</div>

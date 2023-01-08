@@ -1,0 +1,30 @@
+<div id="<%= dom_id topic %>">
+
+<!--  <p>-->
+<!--    <strong>Topic name:</strong>-->
+    <%#= topic.topic_name %>
+<!--  </p>-->
+
+  <div class="card">
+    <div class="card-body  d-flex justify-content-around">
+      <h3 class="card-title"><%= topic.topic_name %> </h3>
+<!--      <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>-->
+      <p class="card-text">
+        <span>Post Count:</span>
+        <% count =  Post.group(:topic_id).count%>
+        <% count.each do |key,value| %>
+          <%= value if key == topic.id  %>
+        <% end %></p>
+        <% if params.has_key?(:id) %>
+          <%else %>
+        <%= link_to "Show Topic", topic,class: 'btn btn-outline-primary' %>
+        <% end %>
+
+      <%= link_to "Show Post", topic_posts_path(topic),class: 'btn btn-outline-primary' %>
+<!--      <a href="#" class="card-link">Card link</a>-->
+<!--      <a href="#" class="card-link">Another link</a>-->
+
+    </div>
+  </div>
+  <br>
+</div>

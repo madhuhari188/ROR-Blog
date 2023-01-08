@@ -1,0 +1,48 @@
+<%= form_with(model: [@topic, post]) do |form| %>
+  <% if post.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+        <% post.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<!--  <div class="mb-3">-->
+<!--    <label for="exampleFormControlInput1" class="form-label">Email address</label>-->
+<!--    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">-->
+<!--  </div>-->
+<!--  <div class="mb-3">-->
+<!--    <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>-->
+<!--    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>-->
+<!--  </div>-->
+  <div class="mb-3">
+    <%= form.label :title, style: "display: block" ,class:"form-label" %>
+    <%= form.text_field :title ,class:"form-control"%>
+
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :body, style: "display: block" ,class:"form-label"%>
+    <%= form.text_area :body , class:"form-control"%>
+  </div>
+  <div>
+    <%= form.fields_for(:tags,Tag.new) do |tag_form| %>
+      <p>Add a new tag:</p><br>
+      <%= tag_form.label :tag %>
+      <%= tag_form.text_field :tag %>
+
+    <% end %>
+  </div>
+  <%= form.collection_select :tag_ids, Tag.all, :id, :tag, {}, {multiple: true} %>
+
+  <%= form.file_field :post_image %>
+  <%#= f.collection_select(:sector_id, Sector.all, :id, :name, {:prompt => "Please Select a Sector"}, {:multiple => true}) %>
+
+  <div>
+    <%= form.submit  class:"btn btn-primary" %>
+  </div>
+<% end %>

@@ -1,0 +1,10 @@
+<h1>Editing post</h1>
+
+<%= render "form", post: @post %>
+
+<br>
+
+<div>
+  <%= link_to "Show this post", topic_post_path(@post.topic_id) , class: 'btn btn-outline-success' %>
+  <%= link_to "Back to posts", topic_posts_path(@post.topic_id) , class: 'btn btn-outline-secondary' %>
+</div>

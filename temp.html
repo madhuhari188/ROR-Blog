@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--  <div>-->
+<%#= form.select :topic_id, Topic.all.collect { |p| [ p.topic_name, p.id ] }%>
+<!--  </div>-->
+
+<!--  <div class="mb-3">-->
+<%#= form.label :tag, style: "display: block" ,class:"form-label"%>
+<%#= form.text_field :tags , value: post.tags.map(&:tag).join(","),class:"form-control"%>
+<!--  </div>-->
+
+<!--  <div class="mb-3">-->
+<%#= form.label :tag, style: "display: block" ,class:"form-label"%>
+<%#= form.collection_select :tags, Tag.all, :tag ,:tag ,{}, {multiple: true,:include_blank =>"please select"} %>
+<!--  </div>-->
+<!--    <%#= form.collection_check_boxes :tags, Tag.all, :tag, :tag %><br>-->
+<!--  <div class="field">-->
+<%#= form.fields_for :tags  do |tag_form| %>
+<!--      <p>Add a new tag:</p><br>-->
+<%#= tag_form.label :tag %>
+<%#= tag_form.text_field :tag %>
+<%# end %>
+<!--  </div>-->
+
+<!--    <%#= form.collection_check_boxes :tag_ids, Tag.all, :id, :name %><br>-->
+</body>
+</html>

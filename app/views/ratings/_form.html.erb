@@ -1,0 +1,35 @@
+<%= form_with(model: [@topic,@post,rating]) do |form| %>
+  <% if rating.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(rating.errors.count, "error") %> prohibited this rating from being saved:</h2>
+
+      <ul>
+        <% rating.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<!--  <div>-->
+    <%#= form.label :post_rating, style: "display: block" %>
+    <%#= form.number_field :post_rating %>
+<!--  </div>-->
+
+  <%= form.label :rating, "What's your overall rating?" %>
+  <div class="rating">
+    <%= form.collection_radio_buttons(:post_rating, [[1],[2],[3],[4],[5]], :first, :last) do |star| %>
+      <%= star.radio_button %>
+      <%= star.value %>
+    <% end %>
+  </div>
+
+<!--  <div>-->
+    <%#= form.label :post_id, style: "display: block" %>
+    <%#= form.number_field :post_id %>
+<!--  </div>-->
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
