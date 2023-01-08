@@ -47,6 +47,8 @@ gem 'rubocop', require: false
 gem 'will_paginate', '~> 3.3', '>= 3.3.1'
 gem 'devise'
 gem 'cancancan', '~> 3.4'
+gem 'omniauth-github', '~> 2.0', '>= 2.0.1'
+gem "omniauth-rails_csrf_protection"
 # Use Sass to process CSS
 # gem "sassc-rails"
 gem 'jquery-rails'

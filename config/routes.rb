@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
+  get 'omniauth/github'
   root "welcome#index"
-  devise_for :users
-
+  # devise_for :users
+  devise_for :users, controllers: {omniauth_callbacks: 'omniauth'}
   resources :tags
   # resources :posts
   # resources :topics
